@@ -1,15 +1,21 @@
 from lxml import html
+from model.worldcup_editon import WorldCupEdition
 import requests
 
-from model.worldcup_editon import WorldCupEdition
-
-
 def extract_data(row):
+    class_list = ['text', 'tbl-goalavg', 'tbl-attendanceavg']
     cols = row.xpath('td')
     for index, col in enumerate(cols):
-        text = col.xpath('.//text()')  
-        if index == 0:
-            edition = text
+        for class_name in class_list:
+            elements = col.find_class(class_name)
+            if elements:
+                text = elements[0].text_content()
+                print text
+                break
+            
+        # Init value 
+        if index == 0:  # Edition, has TM
+            edition = text.encode('ascii', 'ignore')
         elif index == 1:
             team_number = text
         elif index == 2:
