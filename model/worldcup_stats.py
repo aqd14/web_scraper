@@ -1,6 +1,6 @@
 # Define attributes of World Cup editions
 
-class WorldCupEdition(object):
+class WorldCupStats(object):
     def __init__(self, edition, team_number, match_played, goal_scored, average_goal, average_attendance):
         self.edition = edition
         self.team_number = team_number
